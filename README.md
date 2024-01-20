@@ -46,3 +46,11 @@ Nest is [MIT licensed](LICENSE).
 ### 生命周期
 
 ![生命周期](./public/image/lifecycle.png)
+
+### 接口服务
+
+![接口服务](./public/image/api-service.png)
+
+### 核心概念
+
+![核心概念](./public/image/core.png)
