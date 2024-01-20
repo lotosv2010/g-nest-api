@@ -1,16 +1,17 @@
-import { Controller, Get, Body, Headers } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ConfigService } from '@nestjs/config';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Get()
-  getHello(
-    @Body() body: Record<string, any>,
-    @Headers() headers: Record<string, any>,
-  ): string {
-    console.log(body, headers);
-    return this.appService.getHello();
+  getAppPrefix(): string {
+    const prefix = this.configService.get('APP_PREFIX') || '';
+    return `Please Visit ${prefix}`;
   }
 }
