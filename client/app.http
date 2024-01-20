@@ -1,0 +1,14 @@
+# 参考 https://blog.csdn.net/dengnanhua/article/details/118165259
+
+@baseurl = http://{{hostname}}:{{port}}/{{prefix}}/{{version}}
+
+###
+GET {{baseurl}} HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "name": "John Doe",
+  "email": "john@doe.com",
+  "age": 30
+}
