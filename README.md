@@ -37,6 +37,23 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
+## docker
+
+```bash
+# 运行Docker容器，-d参数表示在后台运行容器，不显示容器的输出
+$ docker-compose up -d
+
+# 停止Docker Compose项目
+$ docker-compose down
+
+# 删除Docker容器
+$ docker-compose rm -f
+
+# 查看容器
+$ docker ps
+
+```
+
 ## License
 
 Nest is [MIT licensed](LICENSE).
