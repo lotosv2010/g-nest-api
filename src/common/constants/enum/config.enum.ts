@@ -16,3 +16,9 @@ export enum appConfig {
   APP_PORT = 'APP_PORT',
   APP_PREFIX = 'APP_PREFIX',
 }
+
+export enum logConfig {
+  LOG_LEVEL = 'LOG_LEVEL',
+  LOG_OPEN = 'LOG_OPEN',
+  TIMESTAMP = 'TIMESTAMP',
+}

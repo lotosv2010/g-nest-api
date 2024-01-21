@@ -13,7 +13,7 @@ const schema = Joi.object({
   DB_USERNAME: Joi.string().required(),
   DB_PASSWORD: Joi.string().required(),
   DB_SYNC: Joi.boolean().default(false),
-  LOG_ON: Joi.boolean(),
+  LOG_OPEN: Joi.boolean(),
   LOG_LEVEL: Joi.string(),
 });
 
