@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Profile } from './entities/profile.entity';
 import { QueryUserDto } from './dto/query-user.dto';
+import { dbConditionForamt } from 'src/shared';
 
 @Injectable()
 export class UserService {
@@ -23,7 +24,6 @@ export class UserService {
   }
 
   async findAll(queryUserDto: QueryUserDto) {
-    console.log(queryUserDto);
     const {
       page = 1,
       pageSize = 20,
@@ -31,39 +31,23 @@ export class UserService {
       gender = '',
       role = '',
     } = queryUserDto;
-    const total = await this.userRepository.count({
-      where: {
-        username: Like(`%${username}%`),
-        profile: {
-          gender: Like(`%${gender}%`),
-        },
-        roles: {
-          name: Like(`%${role}%`),
-        },
-      },
-    });
-    const data = await this.userRepository.find({
-      select: {
-        id: true,
-        username: true,
-      },
-      relations: {
-        profile: true,
-        roles: true,
-        logs: true,
-      },
-      where: {
-        username: Like(`%${username}%`),
-        profile: {
-          gender: Like(`%${gender}%`),
-        },
-        roles: {
-          name: Like(`%${role}%`),
-        },
-      },
-      skip: (+page - 1) * +pageSize,
-      take: +pageSize,
-    });
+
+    const conditions = {
+      'profile.gender': gender,
+      'roles.name': role,
+    };
+    const queryBuilder = this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.profile', 'profile')
+      .leftJoinAndSelect('user.roles', 'roles')
+      .leftJoinAndSelect('user.logs', 'logs')
+      .where('user.username Like :username ', { username: `%${username}%` });
+
+    const [data, total] = await dbConditionForamt(queryBuilder, conditions)
+      .skip((+page - 1) * +pageSize)
+      .take(+pageSize)
+      .getManyAndCount();
+
     return {
       total,
       data,
@@ -89,10 +73,18 @@ export class UserService {
 
   async findProfileOne(id: number) {
     return await this.userRepository.findOne({
+      select: {
+        id: true,
+        username: true,
+        create_time: true,
+      },
+      where: {
+        // id,
+        ...(id && { id }),
+      },
       relations: {
         profile: true,
       },
-      where: { id },
     });
   }
 }

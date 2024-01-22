@@ -71,3 +71,7 @@ Nest is [MIT licensed](LICENSE).
 ### 核心概念
 
 ![核心概念](./public/image/core.png)
+
+### 数据库联合查询对比
+
+![核心概念](./public/image/join.png)

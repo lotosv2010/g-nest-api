@@ -25,13 +25,16 @@ Authorization: Bearer {{token}}
 }
 
 ###
-PATCH  {{baseurl}}/user/2 HTTP/1.1
+PATCH  {{baseurl}}/user/1 HTTP/1.1
 Content-Type: {{contentType}}
 Authorization: Bearer {{token}}
 
 {
-  "name": "test22",
+  "name": "test1",
   "password": "1234567890",
+  "profile": {
+    "photo": "photo111"
+  }
 }
 
 ###
