@@ -1,5 +1,43 @@
 @baseurl = http://{{hostname}}:{{port}}/{{prefix}}/{{version}}
 
 ###
-GET {{baseurl}}/user HTTP/1.1
+GET {{baseurl}}/user
+  ?page=1
+  &pageSize=10
+  &username=test1
+  &role=role1
+  &gender=男
+  &sort=username HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+GET {{baseurl}}/user/1 HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+POST {{baseurl}}/user HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "name": "test2",
+  "password": "123456"
+}
+
+###
+PATCH  {{baseurl}}/user/2 HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "name": "test22",
+  "password": "1234567890",
+}
+
+###
+DELETE {{baseurl}}/user/2 HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+GET {{baseurl}}/user/profile/1 HTTP/1.1
 Authorization: Bearer {{token}}

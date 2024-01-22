@@ -1,44 +1,98 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Profile } from './entities/profile.entity';
+import { QueryUserDto } from './dto/query-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private readonly user: Repository<User>,
-    @InjectRepository(Profile) private readonly profile: Repository<Profile>,
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(Profile)
+    private readonly profileRepository: Repository<Profile>,
   ) {}
   create(createUserDto: CreateUserDto) {
     console.log(createUserDto);
-    return 'This action adds a new user';
+    const newUser = new User();
+    newUser.username = createUserDto.username;
+    newUser.password = createUserDto.password;
+    return this.userRepository.save(newUser);
   }
 
-  async findAll() {
-    const data = await this.user.find();
-    const pd = await this.profile.find({
-      // relations: ['user'],
-      relations: {
-        user: true,
+  async findAll(queryUserDto: QueryUserDto) {
+    console.log(queryUserDto);
+    const {
+      page = 1,
+      pageSize = 20,
+      username = '',
+      gender = '',
+      role = '',
+    } = queryUserDto;
+    const total = await this.userRepository.count({
+      where: {
+        username: Like(`%${username}%`),
+        profile: {
+          gender: Like(`%${gender}%`),
+        },
+        roles: {
+          name: Like(`%${role}%`),
+        },
       },
     });
-    console.log(pd);
-    return data;
+    const data = await this.userRepository.find({
+      select: {
+        id: true,
+        username: true,
+      },
+      relations: {
+        profile: true,
+        roles: true,
+        logs: true,
+      },
+      where: {
+        username: Like(`%${username}%`),
+        profile: {
+          gender: Like(`%${gender}%`),
+        },
+        roles: {
+          name: Like(`%${role}%`),
+        },
+      },
+      skip: (+page - 1) * +pageSize,
+      take: +pageSize,
+    });
+    return {
+      total,
+      data,
+    };
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.userRepository.findOne({
+      where: { id },
+    });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    console.log(updateUserDto);
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const profile = await this.findProfileOne(id);
+    const newUser = this.userRepository.merge(profile, updateUserDto);
+    return this.userRepository.save(newUser);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    const delUser = await this.findOne(id);
+    return this.userRepository.remove(delUser);
+  }
+
+  async findProfileOne(id: number) {
+    return await this.userRepository.findOne({
+      relations: {
+        profile: true,
+      },
+      where: { id },
+    });
   }
 }
