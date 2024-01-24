@@ -18,19 +18,20 @@ export class UserService {
     private readonly roleService: RoleService,
   ) {}
   async create(createUserDto: CreateUserDto) {
-    console.log(createUserDto);
     const newUser = new User();
     newUser.username = createUserDto.username;
     newUser.password = createUserDto.password;
-    if (!createUserDto.roleIds) {
+    if (!createUserDto.roles) {
       const role = await this.roleService.findOne(2);
       newUser.roles = [role];
     }
     if (
-      Array.isArray(createUserDto.roleIds) &&
-      typeof createUserDto.roleIds[0] === 'number'
+      Array.isArray(createUserDto.roles) &&
+      typeof createUserDto.roles[0] === 'number'
     ) {
-      newUser.roles = await this.roleService.findByIds(createUserDto.roleIds);
+      newUser.roles = await this.roleService.findByIds(
+        createUserDto.roles as number[],
+      );
     }
     return this.userRepository.save(newUser);
   }
@@ -74,7 +75,7 @@ export class UserService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const profile = await this.findProfileOne(id);
-    const newUser = this.userRepository.merge(profile, updateUserDto);
+    const newUser = this.userRepository.merge(profile, updateUserDto as User);
     return this.userRepository.save(newUser);
   }
 

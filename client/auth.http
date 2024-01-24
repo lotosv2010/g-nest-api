@@ -1,0 +1,21 @@
+@baseurl = http://{{hostname}}:{{port}}/{{prefix}}/{{version}}
+
+###
+POST {{baseurl}}/auth/signin HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
+###
+POST {{baseurl}}/auth/signup HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "username": "",
+  "password": "123456"
+}

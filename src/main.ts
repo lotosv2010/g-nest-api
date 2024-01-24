@@ -7,6 +7,7 @@ import {
   AllExceptionsFilter,
   // HttpExceptionFilterFilter,
 } from './common/filters';
+import { ValidationPipe } from '@nestjs/common';
 // import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
@@ -23,6 +24,11 @@ async function bootstrap() {
   app.setGlobalPrefix(prefix);
   // app.useGlobalFilters(new HttpExceptionFilterFilter(new Logger()));
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      // whitelist: true, // 去除在类上不存在的字段
+    }),
+  );
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   await app.listen(port);
 }

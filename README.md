@@ -74,16 +74,32 @@ Nest is [MIT licensed](LICENSE).
 
 ### 数据库联合查询对比
 
-![核心概念](./public/image/join.png)
+![数据库联合查询对比](./public/image/join.png)
 
 ### 关于方法的全名
 
-![核心概念](./public/image/csr.png)
+![关于方法的全名](./public/image/csr.png)
 
 ### 服务与存储库的区别
 
-![核心概念](./public/image/sr.png)
+![服务与存储库的区别](./public/image/sr.png)
 
 ### TypeOrm 方法对比
 
-![核心概念](./public/image/svr.png)
+![TypeOrm 方法对比](./public/image/svr.png)
+
+### 管道的应用
+
+![管道的应用](./public/image/pipe.png)
+
+### 管道的类型
+
+![管道的类型](./public/image/pipe-type.png)
+
+### 创建管道的过程
+
+![创建管道的过程](./public/image/create-pipe.png)
+
+### JWT
+
+![JWT](./public/image/jwt.png)

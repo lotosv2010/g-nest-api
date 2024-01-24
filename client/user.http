@@ -20,26 +20,30 @@ Content-Type: {{contentType}}
 Authorization: Bearer {{token}}
 
 {
-  "username": "test2",
+  "username": "test25",
   "password": "123456",
-  "roleIds": [1,2]
+  "roles": [{"id": 1}, {"id": 2}] 
 }
 
+# "roles": [1,2]  新增时roles，两种数据结构都行
+
 ###
-PATCH  {{baseurl}}/user/1 HTTP/1.1
+PATCH  {{baseurl}}/user/17 HTTP/1.1
 Content-Type: {{contentType}}
 Authorization: Bearer {{token}}
 
 {
-  "name": "test1",
+  "username": "test17",
   "password": "1234567890",
   "profile": {
-    "photo": "photo111"
+    "photo": "photo17",
+    "gender": "女",
+    "address": "张江高科"
   }
 }
 
 ###
-DELETE {{baseurl}}/user/2 HTTP/1.1
+DELETE {{baseurl}}/user/16 HTTP/1.1
 Authorization: Bearer {{token}}
 
 ###
