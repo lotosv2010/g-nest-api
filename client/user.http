@@ -4,9 +4,9 @@
 GET {{baseurl}}/user
   ?page=1
   &pageSize=10
-  &username=test1
-  &role=role1
-  &gender=男
+  # &username=test1
+  # &role=role1
+  # &gender=男
   &sort=username HTTP/1.1
 Authorization: Bearer {{token}}
 
@@ -20,8 +20,9 @@ Content-Type: {{contentType}}
 Authorization: Bearer {{token}}
 
 {
-  "name": "test2",
-  "password": "123456"
+  "username": "test2",
+  "password": "123456",
+  "roleIds": [1,2]
 }
 
 ###

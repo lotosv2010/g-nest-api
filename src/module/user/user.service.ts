@@ -7,6 +7,7 @@ import { User } from './entities/user.entity';
 import { Profile } from './entities/profile.entity';
 import { QueryUserDto } from './dto/query-user.dto';
 import { dbConditionForamt } from 'src/shared';
+import { RoleService } from '../role/role.service';
 
 @Injectable()
 export class UserService {
@@ -14,12 +15,23 @@ export class UserService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Profile)
     private readonly profileRepository: Repository<Profile>,
+    private readonly roleService: RoleService,
   ) {}
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
     console.log(createUserDto);
     const newUser = new User();
     newUser.username = createUserDto.username;
     newUser.password = createUserDto.password;
+    if (!createUserDto.roleIds) {
+      const role = await this.roleService.findOne(2);
+      newUser.roles = [role];
+    }
+    if (
+      Array.isArray(createUserDto.roleIds) &&
+      typeof createUserDto.roleIds[0] === 'number'
+    ) {
+      newUser.roles = await this.roleService.findByIds(createUserDto.roleIds);
+    }
     return this.userRepository.save(newUser);
   }
 
