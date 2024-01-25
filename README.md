@@ -103,3 +103,7 @@ Nest is [MIT licensed](LICENSE).
 ### JWT
 
 ![JWT](./public/image/jwt.png)
+
+### JwtStrategy
+
+![JWT](./public/image/strategy.png)

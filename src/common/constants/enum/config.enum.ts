@@ -22,3 +22,8 @@ export enum logConfig {
   LOG_OPEN = 'LOG_OPEN',
   TIMESTAMP = 'TIMESTAMP',
 }
+
+export enum jwtConfig {
+  JWT_SECRET = 'JWT_SECRET',
+  JWT_EXPIRESIN = 'JWT_EXPIRESIN',
+}

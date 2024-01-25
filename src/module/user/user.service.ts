@@ -67,6 +67,12 @@ export class UserService {
     };
   }
 
+  find(username: string) {
+    return this.userRepository.findOne({
+      where: { username },
+    });
+  }
+
   findOne(id: number) {
     return this.userRepository.findOne({
       where: { id },
