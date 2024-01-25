@@ -1,5 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { verify } from 'argon2';
 import { SigninUserDto } from './dto/signin-user.dto';
 import { UserService } from '../user/user.service';
 
@@ -16,6 +17,13 @@ export class AuthService {
       throw new ForbiddenException('用户不存在，请注册');
     }
 
+    // 用户密码比对
+    const isPasswordValid = await verify(user.password, signinUserDto.password);
+
+    if (!isPasswordValid) {
+      throw new ForbiddenException('用户名或者密码错误');
+    }
+
     return await this.jwtService.signAsync(
       {
         username: user.username,
@@ -28,7 +36,11 @@ export class AuthService {
     );
   }
 
-  signup(signupUserDto: SigninUserDto) {
+  async signup(signupUserDto: SigninUserDto) {
+    const user = await this.usersService.find(signupUserDto.username);
+    if (user) {
+      throw new ForbiddenException('用户已存在');
+    }
     return this.usersService.create(signupUserDto);
   }
 }

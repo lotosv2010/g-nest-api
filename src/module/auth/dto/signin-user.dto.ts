@@ -10,7 +10,7 @@ export class SigninUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @Length(6, 64, {
+  @Length(6, 200, {
     message: `Password must be between $constraint1 and $constraint2 characters long, current value is $value`,
   })
   password: string;

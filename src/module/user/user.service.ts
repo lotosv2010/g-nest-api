@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { hash } from 'argon2';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -20,7 +21,8 @@ export class UserService {
   async create(createUserDto: CreateUserDto) {
     const newUser = new User();
     newUser.username = createUserDto.username;
-    newUser.password = createUserDto.password;
+    // 对用户密码使用argon2加密
+    newUser.password = await hash(createUserDto.password);
     if (!createUserDto.roles) {
       const role = await this.roleService.findOne(2);
       newUser.roles = [role];

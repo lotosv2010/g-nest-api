@@ -9,7 +9,7 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @Length(6, 64)
+  @Length(6, 200)
   password: string;
 
   roles?: number[] | Role[];
