@@ -9,6 +9,8 @@ import { LogModule } from './module/log/log.module';
 import { RoleModule } from './module/role/role.module';
 import { AuthModule } from './module/auth/auth.module';
 import { getDBFullOptions } from './config';
+// import { APP_GUARD } from '@nestjs/core';
+// import { JwtGuard } from './common/guards';
 
 @Global()
 @Module({
@@ -21,7 +23,15 @@ import { getDBFullOptions } from './config';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, Logger], // 提供全局 Logger
+  providers: [
+    AppService,
+    Logger, // 提供全局 Logger
+    // TODO 全局注册守卫的另一种方式
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: JwtGuard,
+    // },
+  ],
   exports: [Logger],
 })
 export class AppModule {}

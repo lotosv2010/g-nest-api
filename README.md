@@ -106,4 +106,8 @@ Nest is [MIT licensed](LICENSE).
 
 ### JwtStrategy
 
-![JWT](./public/image/strategy.png)
+![JwtStrategy](./public/image/strategy.png)
+
+### signup 流程
+
+![signup 流程](./public/image/signup.png)

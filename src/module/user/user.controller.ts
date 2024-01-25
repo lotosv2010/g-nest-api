@@ -18,9 +18,13 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { QueryUserDto } from './dto/query-user.dto';
 import { CreateUserPipe } from './pipes/create-user.pipe';
-import { AuthGuard } from '@nestjs/passport';
+// import { AuthGuard } from '@nestjs/passport';
+import { AdminGuard, JwtGuard } from 'src/common/guards';
 
 @Controller('user')
+// 此处的守卫整个Controller都会执行
+// @UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtGuard)
 export class UserController {
   constructor(
     private readonly userService: UserService,
@@ -39,6 +43,8 @@ export class UserController {
   // @UseGuards(AdminGuard)
   // @UseGuards(AuthGuard('jwt'))
   // 2. 如果使用UseGuard传递多个守卫，则从前往后执行，如果前面的Guard没有通过，则后面的Guard不会执行
+  // @UseGuards(AuthGuard('jwt'), AdminGuard)
+  @UseGuards(AdminGuard)
   findAll(@Query() queryUserDto: QueryUserDto) {
     return this.userService.findAll(queryUserDto);
   }
@@ -62,7 +68,7 @@ export class UserController {
   }
 
   @Get('profile/:id')
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   findProfileOne(@Param('id', ParseIntPipe) id: number) {
     return this.userService.findProfileOne(+id);
   }
