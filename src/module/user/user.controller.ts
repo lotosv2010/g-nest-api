@@ -11,6 +11,7 @@ import {
   Query,
   ParseIntPipe,
   UseGuards,
+  // UseInterceptors,
 } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { UserService } from './user.service';
@@ -20,6 +21,9 @@ import { QueryUserDto } from './dto/query-user.dto';
 import { CreateUserPipe } from './pipes/create-user.pipe';
 // import { AuthGuard } from '@nestjs/passport';
 import { AdminGuard, JwtGuard } from 'src/common/guards';
+// import { SerializeInterceptor } from 'src/common/interceptors';
+import { PublicUserDto } from './dto/public-user.dto';
+import { Serialize } from 'src/common/decorators';
 
 @Controller('user')
 // 此处的守卫整个Controller都会执行
@@ -45,6 +49,8 @@ export class UserController {
   // 2. 如果使用UseGuard传递多个守卫，则从前往后执行，如果前面的Guard没有通过，则后面的Guard不会执行
   // @UseGuards(AuthGuard('jwt'), AdminGuard)
   @UseGuards(AdminGuard)
+  // @UseInterceptors(new SerializeInterceptor(PublicUserDto)) // 使用构装饰器简化拦截器，如下代码
+  @Serialize(PublicUserDto)
   findAll(@Query() queryUserDto: QueryUserDto) {
     return this.userService.findAll(queryUserDto);
   }

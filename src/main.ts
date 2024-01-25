@@ -22,6 +22,7 @@ async function bootstrap() {
   });
   const httpAdapter = app.get(HttpAdapterHost);
   app.setGlobalPrefix(prefix);
+  // 弊端 -> 无法使用DI -> 无法访问userService
   // app.useGlobalFilters(new HttpExceptionFilterFilter(new Logger()));
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
   app.useGlobalPipes(

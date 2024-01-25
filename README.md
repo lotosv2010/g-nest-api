@@ -111,3 +111,11 @@ Nest is [MIT licensed](LICENSE).
 ### signup 流程
 
 ![signup 流程](./public/image/signup.png)
+
+### 守卫和拦截器区别
+
+![守卫和拦截器区别](./public/image/gi.png)
+
+### 序列化流程
+
+![序列化流程](./public/image/serialize.png)

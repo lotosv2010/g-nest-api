@@ -8,6 +8,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { Log } from 'src/module/log/entities/log.entity';
 import { Role } from 'src/module/role/entities/role.entity';
 import { Profile } from './profile.entity';
@@ -28,6 +29,7 @@ export class User {
     type: 'varchar',
     length: 200,
   })
+  @Exclude()
   password: string;
 
   @CreateDateColumn({ type: 'timestamp' })

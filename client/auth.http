@@ -16,6 +16,6 @@ Content-Type: {{contentType}}
 Authorization: Bearer {{token}}
 
 {
-  "username": "test18",
+  "username": "test19",
   "password": "123456"
 }
