@@ -1,3 +1,4 @@
+import { Menu } from 'src/module/menu/entities/menu.entity';
 import { User } from 'src/module/user/entities/user.entity';
 import {
   Column,
@@ -24,4 +25,7 @@ export class Role {
 
   @ManyToMany(() => User, (user) => user.roles)
   users: User[];
+
+  @ManyToMany(() => Menu, (menu) => menu.role)
+  menus: Menu[];
 }

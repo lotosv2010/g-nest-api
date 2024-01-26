@@ -1,9 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+  UseGuards,
+} from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
+import { Roles } from 'src/common/decorators';
+import { Role } from 'src/common/constants';
+import { JwtGuard, RoleGuard } from 'src/common/guards';
 
 @Controller('menu')
+@Roles(Role.ADMIN)
+@UseGuards(JwtGuard, RoleGuard)
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
@@ -18,17 +33,20 @@ export class MenuController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.menuService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.menuService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
-    return this.menuService.update(+id, updateMenuDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateMenuDto: UpdateMenuDto,
+  ) {
+    return this.menuService.update(id, updateMenuDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.menuService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.menuService.remove(id);
   }
 }

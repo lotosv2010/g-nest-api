@@ -4,7 +4,7 @@
 GET {{baseurl}}/user
   ?page=1
   &pageSize=10
-  &username=test1
+  &username=test01
   &role=管理员
   &gender=男
   &sort=username HTTP/1.1

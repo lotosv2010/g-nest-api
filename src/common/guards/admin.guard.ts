@@ -12,8 +12,13 @@ export class AdminGuard implements CanActivate {
     const { username } = request.user;
     // 2. 获取请求中的用户信息进行逻辑上的判断 -> 角色判断
     const user = await this.userService.find(username);
+    // console.log(request.query, request.user, user);
     // 普通用户
     if (user && user.roles.filter((r) => r.id === 2).length > 0) {
+      return true;
+    }
+    // 管理员
+    if (user && user.roles.filter((r) => r.id === 1).length > 0) {
       return true;
     }
     return false;

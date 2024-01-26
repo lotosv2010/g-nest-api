@@ -3,15 +3,15 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './module/user/user.module';
 import { getAppConfig } from './config';
+import { getDBFullOptions } from './config';
+import { UserModule } from './module/user/user.module';
 import { LogModule } from './module/log/log.module';
 import { RoleModule } from './module/role/role.module';
 import { AuthModule } from './module/auth/auth.module';
-import { getDBFullOptions } from './config';
+import { MenuModule } from './module/menu/menu.module';
 // import { APP_GUARD } from '@nestjs/core';
 // import { JwtGuard } from './common/guards';
-import { MenuModule } from './module/menu/menu.module';
 
 @Global()
 @Module({

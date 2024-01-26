@@ -1,0 +1,34 @@
+@baseurl = http://{{hostname}}:{{port}}/{{prefix}}/{{version}}
+
+###
+GET {{baseurl}}/menu HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+GET {{baseurl}}/menu/1 HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+POST {{baseurl}}/menu HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "name": "首页",
+  "path": "/home",
+  "order": 1,
+  "acl": "CREATE,READ,UPDATE,DELETE,MANAGE",
+}
+
+###
+PATCH {{baseurl}}/menu/3 HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "name": "测试人员"
+}
+
+###
+DELETE {{baseurl}}/menu/3 HTTP/1.1
+Authorization: Bearer {{token}}
