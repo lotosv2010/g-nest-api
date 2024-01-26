@@ -119,3 +119,16 @@ Nest is [MIT licensed](LICENSE).
 ### 序列化流程
 
 ![序列化流程](./public/image/serialize.png)
+
+### 前后端权限控制
+
+![前后端权限控制](./public/image/role.png)
+
+### 权限系统的设计以及主流的五种权限模型
+
+- [权限系统的设计以及主流的五种权限模型](https://www.cnblogs.com/tkuang/p/16717131.html)
+- [超全面的权限系统设计方案](https://blog.csdn.net/z_ssyy/article/details/130256410)
+
+### 认证和鉴权
+
+![认证和鉴权](./public/image/auth.png)

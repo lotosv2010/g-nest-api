@@ -3,3 +3,29 @@
 ###
 GET {{baseurl}}/role HTTP/1.1
 Authorization: Bearer {{token}}
+
+###
+GET {{baseurl}}/role/1 HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+POST {{baseurl}}/role HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "name": "测试人员"
+}
+
+###
+PATCH {{baseurl}}/role/3 HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: {{contentType}}
+
+{
+  "name": "测试人员"
+}
+
+###
+DELETE {{baseurl}}/role/3 HTTP/1.1
+Authorization: Bearer {{token}}

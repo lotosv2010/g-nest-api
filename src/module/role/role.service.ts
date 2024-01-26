@@ -10,13 +10,17 @@ export class RoleService {
   constructor(
     @InjectRepository(Role) private readonly roleRepository: Repository<Role>,
   ) {}
-  create(createRoleDto: CreateRoleDto) {
-    console.log(createRoleDto);
-    return 'This action adds a new role';
+  async create(createRoleDto: CreateRoleDto) {
+    const role = await this.roleRepository.create(createRoleDto);
+    return this.roleRepository.save(role);
   }
 
-  findAll() {
-    return `This action returns all role`;
+  async findAll() {
+    const [data, count] = await this.roleRepository.findAndCount();
+    return {
+      data,
+      count,
+    };
   }
 
   async findByIds(ids: number[]) {
@@ -33,12 +37,15 @@ export class RoleService {
     });
   }
 
-  update(id: number, updateRoleDto: UpdateRoleDto) {
-    console.log(updateRoleDto);
-    return `This action updates a #${id} role`;
+  async update(id: number, updateRoleDto: UpdateRoleDto) {
+    const role = await this.findOne(id);
+    // role.name = updateRoleDto.name;
+    const newRole = this.roleRepository.merge(role, updateRoleDto);
+    return await this.roleRepository.save(newRole);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} role`;
+  async remove(id: number) {
+    // delete  -> AfterRemove 不会触发
+    return await this.roleRepository.delete(id);
   }
 }

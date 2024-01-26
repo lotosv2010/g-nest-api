@@ -11,6 +11,7 @@ import { AuthModule } from './module/auth/auth.module';
 import { getDBFullOptions } from './config';
 // import { APP_GUARD } from '@nestjs/core';
 // import { JwtGuard } from './common/guards';
+import { MenuModule } from './module/menu/menu.module';
 
 @Global()
 @Module({
@@ -21,6 +22,7 @@ import { getDBFullOptions } from './config';
     ConfigModule.forRoot(getAppConfig()),
     TypeOrmModule.forRoot(getDBFullOptions()),
     AuthModule,
+    MenuModule,
   ],
   controllers: [AppController],
   providers: [
