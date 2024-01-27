@@ -16,7 +16,11 @@ export class RoleService {
   }
 
   async findAll() {
-    const [data, count] = await this.roleRepository.findAndCount();
+    const [data, count] = await this.roleRepository.findAndCount({
+      relations: {
+        menus: true,
+      },
+    });
     return {
       data,
       count,

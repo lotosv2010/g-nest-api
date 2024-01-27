@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { jwtConfig } from 'src/common/constants';
 import { JwtStrategy } from './auth.strategy';
+import { CaslAbilityService } from './casl-ability.service';
 
 @Global()
 @Module({
@@ -24,6 +25,7 @@ import { JwtStrategy } from './auth.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, CaslAbilityService],
+  exports: [CaslAbilityService],
 })
 export class AuthModule {}

@@ -17,7 +17,7 @@ Content-Type: {{contentType}}
   "name": "首页",
   "path": "/home",
   "order": 1,
-  "acl": "CREATE,READ,UPDATE,DELETE,MANAGE",
+  "acl": "CREATE,READ,UPDATE,DELETE,MANAGE"
 }
 
 ###
