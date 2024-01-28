@@ -132,3 +132,15 @@ Nest is [MIT licensed](LICENSE).
 ### 认证和鉴权
 
 ![认证和鉴权](./public/image/auth.png)
+
+### 服务器安全
+
+![服务器安全](./public/image/secure.png)
+
+### 服务器部署环境 PM2
+
+![服务器部署环境 PM2](./public/image/server-env.png)
+
+### 服务器部署环境 Docker
+
+![服务器部署环境 Docker](./public/image/server-env2.png)
